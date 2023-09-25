@@ -1,0 +1,8 @@
+fastapi==0.97.0
+hypercorn==0.14.3
+pytest==7.3.2
+SQLAlchemy==2.0.16
+asyncpg==0.27.0
+alembic==1.11.1
+
+python-decouple==3.8
