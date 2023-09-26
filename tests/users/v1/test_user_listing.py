@@ -9,7 +9,7 @@ from src.users.v1.crud import UserCRUD
 from tests.users.v1.factories import UserFactory
 
 
-#@pytest.mark.users
+@pytest.mark.users
 async def test_all_users_listing_empty(
         async_client: AsyncClient,
         async_session: AsyncSession,

@@ -1,7 +1,7 @@
 from functools import lru_cache
 
 from decouple import config
-from pydantic import conint, RedisDsn
+from pydantic import conint, RedisDsn, ConfigDict
 from pydantic_settings import BaseSettings
 
 
