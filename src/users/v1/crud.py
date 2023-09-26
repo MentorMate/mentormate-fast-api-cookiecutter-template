@@ -1,8 +1,7 @@
-from typing import Any
 from uuid import UUID
 
 from pydantic import EmailStr
-from sqlalchemy import select, insert, ResultProxy, CursorResult, Result
+from sqlalchemy import select, insert
 
 from src.users.v1.models import User
 from src.utils import SQLAlchemySessionMixin

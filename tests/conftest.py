@@ -1,6 +1,4 @@
 import asyncio
-import json
-import os
 from typing import Generator
 
 import pytest
@@ -24,7 +22,7 @@ def event_loop(request) -> Generator:  # noqa: indirect usage
 async def async_client():
     async with AsyncClient(
             app=app,
-            base_url=f"http://localhost"
+            base_url="http://localhost"
     ) as client:
         yield client
 
