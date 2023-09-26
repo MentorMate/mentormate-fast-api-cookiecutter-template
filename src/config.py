@@ -1,7 +1,8 @@
 from functools import lru_cache
 
 from decouple import config
-from pydantic import BaseSettings, conint, RedisDsn
+from pydantic import conint, RedisDsn
+from pydantic_settings import BaseSettings
 
 
 class DatabaseSettings(BaseSettings):
