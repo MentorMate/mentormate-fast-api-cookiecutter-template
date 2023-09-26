@@ -16,6 +16,10 @@ clean:
 		rm -rf $$dir; \
 	done
 
+# Create virtual environment
+environment:
+	@python -m venv venv
+
 # Run application server
 server:
 	@hypercorn src.main:app --reload --bind 0.0.0.0:8000
