@@ -9,6 +9,7 @@ from sqlalchemy.orm import sessionmaker
 
 from src.database import async_engine, Base
 from src.main import app
+from tests.users.v1.factories import UserFactory
 
 
 @pytest.fixture(scope="session")
@@ -36,6 +37,8 @@ async def async_session() -> AsyncSession:
     async with session() as s:
         async with async_engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
+
+        UserFactory.set_session(s)
 
         yield s
 

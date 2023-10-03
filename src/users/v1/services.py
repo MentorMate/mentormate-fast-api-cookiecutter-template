@@ -1,11 +1,12 @@
+from typing import List, Union
 from uuid import UUID
 
 from pydantic import EmailStr
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.auth.security import get_password_hash, verify_password
 from src.logger import logger
-from src.security import get_password_hash
 from src.users.v1.crud import UserCRUD
 from src.users.v1.exceptions import (
     UserNotCreatedException,
@@ -52,3 +53,14 @@ class UserService(SQLAlchemySessionMixin):
         # ...
 
         return user
+
+    async def authenticate(self, email: str, password: str) -> Union[User, False]:
+        users: List[User] = await self.users.get_users_by_email(email)
+
+        if not users or len(users) > 1:
+            return False
+
+        if not verify_password(password, users[0].password):
+            return False
+
+        return users[0]

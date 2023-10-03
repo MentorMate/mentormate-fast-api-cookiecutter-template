@@ -5,7 +5,6 @@ from fastapi import status
 from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.users.v1.crud import UserCRUD
 from tests.users.v1.factories import UserFactory
 
 
@@ -14,7 +13,12 @@ async def test_all_users_listing_empty(
         async_client: AsyncClient,
         async_session: AsyncSession,
 ):
+    # Arrange
+
+    # Act
     response = await async_client.get("/api/v1/users")
+
+    # Assert
     assert response.status_code == status.HTTP_200_OK
     assert response.json() == []
 
@@ -25,9 +29,7 @@ async def test_all_users_listing_not_empty(
         async_session: AsyncSession,
 ):
     # Arrange
-    user = UserFactory()
-    users = UserCRUD(session=async_session)
-    user_id = await users.create_user(user.email, user.password)
+    user = await UserFactory.create()
 
     # Act
     response = await async_client.get("/api/v1/users")
@@ -37,7 +39,7 @@ async def test_all_users_listing_not_empty(
     assert response.status_code == status.HTTP_200_OK
     assert len(results) == 1
     assert results[0] == {
-        "id": str(user_id),
+        "id": str(user.id),
         "email": user.email
     }
 
@@ -47,14 +49,11 @@ async def test_all_users_listing_not_empty_filtered(
         async_session: AsyncSession,
 ):
     # Arrange
-    users = UserFactory.create_batch(10)
+    users = await UserFactory.create_batch(10)
 
     user_ids = list()
     for user in users:
-        user_id = await UserCRUD(
-            session=async_session
-        ).create_user(user.email, user.password)
-        user_ids.append(str(user_id))
+        user_ids.append(str(user.id))
 
     random_user_id = random.choice(user_ids)
 
@@ -65,5 +64,6 @@ async def test_all_users_listing_not_empty_filtered(
     results = response.json()
 
     # Assert
+    assert response.status_code == 200
     assert len(results) == 1
     assert results[0]["id"] == random_user_id

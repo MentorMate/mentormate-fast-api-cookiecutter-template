@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.database import get_async_session
 from src.users.v1.crud import UserCRUD
-from src.users.v1.service import UserService
+from src.users.v1.services import UserService
 
 
 async def get_users_crud(

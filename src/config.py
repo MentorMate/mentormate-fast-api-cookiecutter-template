@@ -4,6 +4,8 @@ from decouple import config
 from pydantic import conint, RedisDsn
 from pydantic_settings import BaseSettings
 
+from src.auth.jwt.config import JWTSettings
+
 
 class DatabaseSettings(BaseSettings):
     db_user: str = config('DB_USER', cast=str)
@@ -13,7 +15,7 @@ class DatabaseSettings(BaseSettings):
     db_port: conint(ge=1, le=65535) = config('DB_PORT', cast=int)
 
     @property
-    def db_connection_url(self) -> str:
+    def async_db_connection_url(self) -> str:
         if config("FASTAPI_TEST", cast=bool, default=False):
             return "sqlite+aiosqlite:///:memory:"
         return f"postgresql+asyncpg://{self.db_user}:{self.db_password}@{self.db_host}:{self.db_port}/{self.db_name}"
@@ -30,10 +32,6 @@ class CacheSettings(BaseSettings):
         return RedisDsn(
             f"redis://{self.cache_host}:{self.cache_port}/{self.cache_db_index}"
         )
-
-
-class JWTSettings(BaseSettings):
-    pass
 
 
 class Settings(

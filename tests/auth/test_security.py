@@ -1,6 +1,6 @@
 import pytest
 
-from src.security import get_password_hash, verify_password
+from src.auth.security import get_password_hash, verify_password
 
 
 @pytest.mark.auth

@@ -1,7 +1,10 @@
 import bcrypt
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 # Salt rounds for bcrypt (adjust as needed, higher values are more secure but slower)
 BCRYPT_ROUNDS = 12
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:

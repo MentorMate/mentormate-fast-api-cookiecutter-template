@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends
 from src.users.v1.crud import UserCRUD
 from src.users.v1.dependencies import get_users_crud, get_users_service
 from src.users.v1.schemas import UserCreateIn, UserCreateOut
-from src.users.v1.service import UserService
+from src.users.v1.services import UserService
 
 router = APIRouter(
     prefix="/api/v1",
@@ -30,4 +30,4 @@ async def create_user(
         user_data: UserCreateIn,
         user_service: UserService = Depends(get_users_service)
 ):
-    return await user_service.create(**user_data.dict())
+    return await user_service.create(**user_data.model_dump())
