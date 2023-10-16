@@ -1,20 +1,10 @@
 # Makefile
 
 PROJECT_DIR := $(shell pwd)
-CACHE_DIRS := $(shell find $(PROJECT_DIR) -type d -name "cache" \
-	-o -name "__pycache__" -o -name ".pytest_cache" -o -name "htmlcov")
 
 # Load environment variables from .env file
 include .env
 export $(shell sed 's/=.*//' .env)
-
-# Clean target to delete .pytest_cache directories and Python cache files
-clean:
-	@echo "Cleaning up cache folders..."
-	@for dir in $(CACHE_DIRS); do \
-		echo "Removing: $$dir"; \
-		rm -rf $$dir; \
-	done
 
 # Create virtual environment
 environment:

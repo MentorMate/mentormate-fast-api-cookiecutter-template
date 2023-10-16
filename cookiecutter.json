@@ -1,0 +1,8 @@
+{
+  "project_name": "my_project",
+  "add_example_apps": [false, true],
+  "your_email": "webmaster@localhost",
+  "your_name": "John Doe",
+
+  "_env_file": ".env"
+}
