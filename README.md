@@ -24,7 +24,7 @@ Before using this template, make sure you have the following requirements met:
 
 ## Usage
 
-To generate a new Django project using this Cookiecutter template, follow these
+To generate a new FastAPI project using this Cookiecutter template, follow these
 steps:
 
 1. Open a terminal or command prompt.
@@ -35,7 +35,7 @@ steps:
    your project:
 
    ```shell
-   cookiecutter https://github.com/gp-mentormate/django-cookiecutter-template
+   cookiecutter https://github.com/MentorMate/mentormate-fast-api-cookiecutter-template.git
    ```
 
    This command will initiate the project generation process.
@@ -58,8 +58,7 @@ steps:
    your project and installed the necessary dependencies. You don't need to
    create a separate virtual environment or install dependencies manually.
 
-   You can choose to run the project using either Docker Compose or as a
-   standard Django application from the terminal.
+   You can choose to run the project using either Docker Compose or a web server application from the terminal.
 
     - To start the project with Docker Compose, ensure that Docker is installed
       on your machine. Then, run the following command:
@@ -70,14 +69,14 @@ steps:
 
       This will build the Docker containers and start the project.
 
-    - Alternatively, if you prefer to run the project as a standard Django
+    - Alternatively, if you prefer to run the project as an
       application from the terminal, use the following command:
 
       ```shell
-      python manage.py runserver
+      python hypercorn src.main:app --reload --bind 0.0.0.0:8000
       ```
 
-      This command will start the Django development server, and you can access
+      This command will start the project's development server, and you can access
       the application by
       visiting [http://localhost:8000/](http://localhost:8000/) in your web
       browser.
